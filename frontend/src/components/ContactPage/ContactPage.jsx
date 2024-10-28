@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import callContactPage from "./callContactPage.png";
 import mailContactPage from "./mailContactPage.png";
 import locContactPage from "./locContactPage.png";
-import styles from "./ContactPage.module.css"; // Import CSS module
+// import styles from "./ContactPage.module.css"; 
 import { useForm } from "react-hook-form";
 import { API } from "../../helper";
 import { toast } from "react-toastify";
 import MoonImage from "./bgLandingPage.png";
 
 import BgConTactUs from "./BgContactUs.png";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import "./ContactPage.css"
 
 
 
 const ContactCard = ({ image, children }) => (
+  
   <div className="md:w-[24%] w-[100%] mx-auto bg-gradient-to-r from-[#a6a6a6] to-[#ffffff] dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#737373]  rounded-3xl flex flex-row md:flex-col items-center justify-between md:justify-evenly px-3 py-4 md:py-0  shadow-lg">
     <img
       src={image}
@@ -31,11 +35,14 @@ function ContactPage() {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm();
 
   const [msg, setMsg] = useState("");
+  
 
   const onSubmit = async (data) => {
+    
     try {
       const res = await fetch(API.register.url, {
         method: API.register.method,
@@ -67,6 +74,9 @@ function ContactPage() {
       setMsg("");
     }, 3000);
   };
+
+  
+      
 
   return (
     <div className="h-full w-full dark:bg-black">
@@ -154,10 +164,6 @@ function ContactPage() {
                 approriate person to serve you better. Expected time of response
                 should be within 24 hours.{" "}
               </p>
-              {/* <h3 className="text-2xl md:text-4xl font-normal mb-6 dark:text-white">
-                {" "}
-                Contact us
-              </h3> */}
             </div>
 
             <div className="bg-gradient-to-r mb-4 from-[#ffffff] to-[#a6a6a6] dark:bg-gradient-to-r dark:from-[#000000] dark:to-[#737373] border-black border-2 rounded-[50px] p-10 h-auto md:h-[60%] w-[90%] md:w-[50%] lg:w-[40%] mx-auto">
@@ -165,16 +171,16 @@ function ContactPage() {
                 className="space-y-[17px] md:space-y-4 mx-auto max-w-[100%] md:max-w-[85%] lg:max-w-[78%]"
                 onSubmit={handleSubmit(onSubmit)}
               >
-                 <h3 className="text-2xl md:text-4xl font-normal uppercase text-center mb-10 dark:text-white">
-                {" "}
-                Contact us
-              </h3>
+                <h3 className="text-2xl md:text-4xl font-normal uppercase text-center mb-10 dark:text-white">
+                  {" "}
+                  Contact us
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1 items-center justify-center">
                     <input
                       type="text"
                       placeholder="First Name"
-                      className="p-2 md:p-2 text-sm border rounded-2xl md:rounded-3xl w-full placeholder:text-gray-500 placeholder:text-center focus:outline-none focus:border-[#a6a6a6] transition duration-300"
+                      className="p-2 md:p-2 text-sm border rounded-2xl md:rounded-3xl w-full placeholder:text-gray-500 placeholder:text-center focus:outline-none focus:border-[#a6a6a6] transition duration-300 pl-6"
                       {...register("firstName", {
                         required: "First name is required",
                       })}
@@ -208,7 +214,7 @@ function ContactPage() {
                     <input
                       type="email"
                       placeholder="Email Address"
-                      className="p-2 md:p-2 text-sm border rounded-2xl md:rounded-3xl w-full placeholder:text-gray-500 placeholder:text-center focus:outline-none focus:border-[#a6a6a6] transition duration-300"
+                      className="p-2 md:p-2 text-sm border rounded-2xl md:rounded-3xl w-full placeholder:text-gray-500 placeholder:text-center focus:outline-none focus:border-[#a6a6a6] transition duration-300 "
                       {...register("email", {
                         required: "Email is required",
                         pattern: {
@@ -224,7 +230,7 @@ function ContactPage() {
                     )}
                   </div>
 
-                  <div className="flex flex-col gap-1 items-center justify-center">
+                  {/* <div className="flex flex-col gap-1 items-center justify-center">
                     <input
                       type="tel"
                       placeholder="Phone Number"
@@ -238,6 +244,47 @@ function ContactPage() {
                         {errors.phoneNumber.message}
                       </span>
                     )}
+                  </div> */}
+
+                  <div className="flex flex-col gap-1 items-center justify-center rounded-2xl md:rounded-3xl">
+                    <PhoneInput
+                      country={"in"} // Set default to India
+                      value={""}
+                      onChange={(phone) => setValue("phoneNumber", phone)} // Registering value change
+                      inputProps={{
+                        name: "phoneNumber",
+                        required: true,
+                        autoFocus: false,
+                      }}
+                      placeholder="Phone Number"
+                      containerClass="w-full  rounded-2xl md:rounded-3xl" // Container class for PhoneInput
+                      inputClass="p-2 text-sm rounded-2xl md:rounded-3xl placeholder:text-gray-500 placeholder:text-center focus:outline-none  transition duration-300 h-[40px]" // Class for input
+                      buttonClass="p-0 border border-[#a6a6a6] rounded-2xl md:rounded-3xl" // Class for dropdown button
+                      dropdownClass="absolute z-10 mt-1 w-full border border-[#a6a6a6] rounded-lg bg-white shadow-lg" // Class for dropdown container
+                      searchClass="p-1 text-sm rounded-lg placeholder:text-gray-500 focus:outline-none  transition duration-300" // Class for search field
+                      containerStyle={{
+                        margin: "0 auto",
+                        maxWidth: "400px",
+                        borderRadius: "24px",
+                      }} // Styles for container with border radius
+                      inputStyle={{ height: "40px", width: "100%" ,borderRadius: "24px" ,color: "gray" ,placeholderColor: "gray"}} // Styles for input
+                      buttonStyle={{
+                        padding: "0",
+                        height: "40px",
+                        borderRight: "14px ",
+                        borderTopLeftRadius: "24px",
+                        borderBottomLeftRadius: "24px",
+                        
+                        
+
+                        backgroundColor: "white",
+                      }} // Styles for dropdown button
+                      dropdownStyle={{ zIndex: 1000  }} // Styles for dropdown container
+                      searchStyle={{ margin: "0", padding: "0" ,  }} // Styles for search field
+
+                      
+
+                    />
                   </div>
                 </div>
 

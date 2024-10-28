@@ -1,0 +1,32 @@
+.react-tel-input .flag-dropdown:hover, .react-tel-input .flag-dropdown:focus{
+
+    border-top-left-radius: 24px !important;
+    border-bottom-left-radius: 24px !important;
+
+
+
+
+}
+
+.react-tel-input .selected-flag:hover, .react-tel-input .selected-flag:focus{
+
+
+
+    border-top-left-radius: 24px !important;
+    border-bottom-left-radius: 24px !important;
+
+
+}
+
+.react-tel-input .flag-dropdown.open .selected-flag {
+
+
+
+    background: none;
+}
+
+.react-tel-input .country-list {
+ width: 250px ;
+ height: 170px !important;
+
+}

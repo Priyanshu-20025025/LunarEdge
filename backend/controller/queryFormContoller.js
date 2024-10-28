@@ -3,7 +3,9 @@ import nodemailer from 'nodemailer'
  const query = async (req, res, next) => {
 console.log("Inside query")
   try {
-    const { firstName, lastName , phoneNumber, email, message } = req.body;
+    const { firstName, lastName , phoneNumber, email, message, countryCode } = req.body;
+
+    console.log(firstName,lastName,phoneNumber,email,message,countryCode)
 
     if (!firstName) {
       throw new Error('firstName is required!')
@@ -28,6 +30,7 @@ console.log("Inside query")
       lastName,
       phoneNumber,
       email,
+      countryCode,
       message
     });
 

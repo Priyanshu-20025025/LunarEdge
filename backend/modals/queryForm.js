@@ -15,6 +15,9 @@ const queryFormSchema = new Schema({
         type : Number,
         required : [true,'phone number is required']
     },
+    countryCode : {
+        type : String,
+    },
     email : {
         type : String,
         required : [true,'email is required']
